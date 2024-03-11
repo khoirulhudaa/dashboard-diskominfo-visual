@@ -42,7 +42,7 @@ const SignIn: React.FC = () => {
 
   return (
     <div className="flex w-screen flex items-center h-screen overflow-hidden">
-      <div className="w-full h-screen border-r border-r-slate-300 bg-white border-stroke dark:border-strokedark xl:w-[35vw] xl:border-l-2">
+      <div className="w-full h-screen border-r border-r-slate-300 bg-white border-stroke dark:border-strokedark w-[100vw] md:w-[35vw] xl:border-l-2">
         <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
           <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
             Dashboard
@@ -147,7 +147,7 @@ const SignIn: React.FC = () => {
           </form>
         </div>
       </div>
-      <div className="w-[65%] h-screen overflow-hidden flex items-center justify-center p-4">
+      <div className="w-[65%] h-screen overflow-hidden hidden md:flex items-center justify-center p-4">
         <Image 
           src={Images}
           className="rotate-[35deg] scale-[1.4]"

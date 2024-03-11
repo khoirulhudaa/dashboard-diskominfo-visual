@@ -67,7 +67,7 @@ const DropdownUser = () => {
         <div onClick={() => setMenu(!menu)} className="w-[40px] h-[40px] bg-slate-700 text-white text-center shadow-lg rounded-full flex items-center justify-center cursor-pointer hover:brightness-[90%] active:scale-[0.98] duration-100 p-1">
           <div className={`duration-100 ease ${menu ? 'rotate-[180deg]' : 'rotate-0'}`}>
             <svg
-              className="hidden fill-current sm:block"
+              className="fill-current block"
               width="12"
               height="8"
               viewBox="0 0 12 8"

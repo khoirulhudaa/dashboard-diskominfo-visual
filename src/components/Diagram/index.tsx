@@ -219,11 +219,11 @@ const Diagram: React.FC = () => {
           </div>
         ):
           <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-            <div className="px-4 flex w-full items-center justify-between py-6 md:px-6 xl:px-7.5">
+            <div className="px-4 md:flex w-full items-center justify-between py-6 md:px-6 xl:px-7.5">
               <h4 className="text-xl font-semibold text-black dark:text-white">
                 Data visual
               </h4>
-              <div className='w-max flex items-centr'>
+              <div className='w-max flex items-center md:mt-0 mt-5'>
                 {
                   activeAdd ? (
                     <ModelVisual handleStatus={() => handleStatus()} close={() => setActiveAdd(false)} />
@@ -261,15 +261,15 @@ const Diagram: React.FC = () => {
                         name='search'
                         onChange={(e: any) => setSearch(e.target.value)}
                         placeholder="Cari data sekarang..."
-                        className="w-full bg-transparent pl-10 pr-6 font-medium p-2 outline-0 border-[1px] border-slate-300 rounded-full xl:w-[100%]"
+                        className="w-full bg-transparent pl-10 pr-6 font-medium p-2 outline-0 border-[1px] border-slate-300 rounded-full w-[80%] md:w-[100%]"
                       />
                     </div>
                 </form>
                 {
                   Auth?.role === 'super-admin' || Auth?.role === 'super-sub-admin' ? (
-                    <div onClick={() => setActiveAdd(!activeAdd)} className='w-max flex items-center h-max px-4 py-2 text-center cursor-pointer hover:brightness-[90%] active:scale-[0.98] bg-blue-500 text-white rounded-full ml-3 shdow-md'>
+                    <div onClick={() => setActiveAdd(!activeAdd)} className='w-max flex items-center h-max px-4 py-4 md:py-2 text-center cursor-pointer hover:brightness-[90%] active:scale-[0.98] bg-blue-500 text-white rounded-full ml-[-20px] md:ml-3 shdow-md'>
                         <FaPlusCircle /> 
-                        <p className='ml-3'>
+                        <p className='ml-3 md:inline hidden'>
                           Tambah data baru
                         </p>
                     </div>
@@ -286,12 +286,12 @@ const Diagram: React.FC = () => {
               <div className="col-span-2 hidden items-center sm:flex">
                 <p className="font-medium">Link tableu</p>
               </div>
-              <div className="col-span-2 flex items-center">
+              <div className="col-span-2 hidden sm:flex items-center">
                 <p className="font-medium">Nama (<i>Uploader</i>)</p>
               </div>
               {
                 Auth?.role === 'super-admin' || Auth?.role === 'super-sub-admin' ? (
-                  <div className="col-span-1 flex items-center">
+                  <div className="col-span-3 md:col-span-1 flex items-center">
                     <p className="font-medium">Aksi</p>
                   </div>
                 ):
@@ -328,14 +328,14 @@ const Diagram: React.FC = () => {
                     </p>
                   </a>
                 </div>
-                <div className="col-span-2 flex items-center">
+                <div className="col-span-2 hidden sm:flex items-center">
                   <p className="text-sm text-black dark:text-white">
                     {data?.uploader}
                   </p>
                 </div>
                 {
                   Auth?.role === 'super-admin' || Auth?.role === 'super-sub-admin' ? (
-                    <div className="col-span-1 flex items-center">
+                    <div className="col-span-3 md:col-span-1 flex items-center">
                       <div className='flex items-center'>
                         <div onClick={() => handleRemoveTableu(data?.visual_id)} className='w-[34px] h-[34px] rounded-[6px] mr-2 bg-[red] cursor-pointer hover:brightness-[90%] active:scale-[0.98] p-1 text-white flex items-center justify-center'>
                           <FaTrash />

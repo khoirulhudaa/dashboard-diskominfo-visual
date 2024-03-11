@@ -63,7 +63,7 @@ const Users: React.FC = () => {
 
   return (
     <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-      <div className="px-4 flex w-full items-center justify-between py-6 md:px-6 xl:px-7.5">
+      <div className="px-4 md:flex w-full items-center justify-between py-6 md:px-6 xl:px-7.5">
         <h4 className="text-xl font-semibold text-black dark:text-white">
           Data anggota
         </h4>
@@ -75,7 +75,8 @@ const Users: React.FC = () => {
           ):
             null
         }
-        <div className='w-max flex items-centr'>
+
+        <div className='w-max flex items-center md:mt-0 mt-5'>
           <form action="https://formbold.com/s/unique_form_id" method="POST">
               <div className="relative">
                 <button className="absolute left-3 top-1/2 -translate-y-1/2">
@@ -107,15 +108,15 @@ const Users: React.FC = () => {
                   name='search'
                   onChange={(e: any) => setSearch(e.target.value)}
                   placeholder="Cari anggota sekarang..."
-                  className="w-full bg-transparent pl-10 pr-6 font-medium p-2 outline-0 border-[1px] border-slate-300 rounded-full xl:w-[100%]"
+                  className="w-full bg-transparent pl-10 pr-6 font-medium p-2 outline-0 border-[1px] border-slate-300 rounded-full w-[80%] md:w-[100%]"
                 />
               </div>
           </form>
           {
             Auth?.role === 'super-admin' ? (
-              <div onClick={() => setActiveAdd(true)} className='w-max flex items-center h-max px-4 py-2 text-center cursor-pointer hover:brightness-[90%] active:scale-[0.98] bg-blue-500 text-white rounded-full ml-3 shdow-md'>
+              <div onClick={() => setActiveAdd(true)} className='w-max flex items-center h-max px-4 py-4 md:py-2 text-center cursor-pointer hover:brightness-[90%] active:scale-[0.98] bg-blue-500 text-white rounded-full ml-[-20px] md:ml-3 shdow-md'>
                   <FaPlusCircle /> 
-                  <p className='ml-3'>
+                  <p className='ml-3 md:inline hidden'>
                     Tambah anggota baru
                   </p>
               </div>
@@ -123,22 +124,23 @@ const Users: React.FC = () => {
               null
            }
         </div>
+
       </div>
 
-      <div className="grid grid-cols-6 border-t border-stroke px-4 py-4.5 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
-        <div className="col-span-2 flex items-center">
+      <div className="grid border-t border-stroke px-4 py-4.5 dark:border-strokedark grid-cols-8 md:px-6 2xl:px-7.5">
+        <div className="col-span-4 md:col-span-2 flex items-center">
           <p className="font-medium">Username</p>
         </div>
-        <div className="col-span-3 hidden items-center sm:flex">
+        <div className="col-span-3 items-center hidden md:flex">
           <p className="font-medium">Email</p>
         </div>
-        <div className="col-span-2 flex items-center">
+        <div className="col-span-2 flex items-center hidden md:flex">
           <p className="font-medium">Posisi</p>
         </div>
         {
             Auth?.role === 'super-admin' ? (
-              <div className="col-span-1 flex items-center">
-                <p className="font-medium">Aksi</p>
+              <div className="col-span-2 md:col-span-1 flex items-end">
+                <p className="font-medium md:ml-0 ml-12">Aksi</p>
               </div>
             ):
               null
@@ -157,27 +159,27 @@ const Users: React.FC = () => {
           className="grid grid-cols-6 border-t border-stroke px-4 py-4.5 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5"
           key={key}
         >
-          <div className="col-span-2 flex items-center">
+          <div className="col-span-4 md:col-span-2 flex items-center">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
               <p className="text-sm text-black dark:text-white">
                 {data?.username}
               </p>
             </div>
           </div>
-          <div className="col-span-3 hidden items-center sm:flex">
+          <div className="col-span-3 items-center hidden md:flex">
             <p className="text-sm text-black dark:text-white">
               {data?.email}
             </p>
           </div>
-          <div className="col-span-2 flex items-center">
+          <div className="col-span-2 flex items-center hidden md:flex">
             <p className="text-sm text-black dark:text-white">
               {data?.role}
             </p>
           </div>
           {
             Auth?.role === 'super-admin' ? (
-              <div className="col-span-1 flex items-center">
-                <div className='flex items-center'>
+              <div className="col-span-2 md:col-span-1 flex">
+                <div className='flex'>
                   <div onClick={() => handleRemoveUser(data?.user_id)} className='w-[34px] h-[34px] rounded-[6px] mr-2 bg-[red] cursor-pointer hover:brightness-[90%] active:scale-[0.98] p-1 text-white flex items-center justify-center'>
                     <FaTrash />
                   </div>
