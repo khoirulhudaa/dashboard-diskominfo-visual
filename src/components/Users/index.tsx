@@ -12,15 +12,13 @@ import ModelUpdateUser from '../Modal/modelUpdateUser';
 const Users: React.FC = () => {
 
   const dispatch = useDispatch()
-  const user = useSelector((state: any) => state.Information?.user)
+  const Auth = useSelector((state: any) => state.Auth?.auth)
 
-  const [loading, setLoading] = useState<boolean>(false)
   const [activeAdd, setActiveAdd] = useState<boolean>(false)
   const [activeUpdate, setActiveUpdate] = useState<boolean>(false)
   const [status, setStatus] = useState<boolean>(false)
   const [dataUsers, setDataUsers] = useState<any[]>([])
   const [search, setSearch] = useState<string>('')
-  const [error, setError] = useState<string>('')
 
   useEffect(() => {
 
@@ -113,12 +111,17 @@ const Users: React.FC = () => {
                 />
               </div>
           </form>
-          <div onClick={() => setActiveAdd(true)} className='w-max flex items-center h-max px-4 py-2 text-center cursor-pointer hover:brightness-[90%] active:scale-[0.98] bg-blue-500 text-white rounded-full ml-3 shdow-md'>
-              <FaPlusCircle /> 
-              <p className='ml-3'>
-                Tambah anggota baru
-              </p>
-          </div>
+          {
+            Auth?.role === 'super-admin' ? (
+              <div onClick={() => setActiveAdd(true)} className='w-max flex items-center h-max px-4 py-2 text-center cursor-pointer hover:brightness-[90%] active:scale-[0.98] bg-blue-500 text-white rounded-full ml-3 shdow-md'>
+                  <FaPlusCircle /> 
+                  <p className='ml-3'>
+                    Tambah anggota baru
+                  </p>
+              </div>
+            ):
+              null
+           }
         </div>
       </div>
 
@@ -132,9 +135,14 @@ const Users: React.FC = () => {
         <div className="col-span-1 flex items-center">
           <p className="font-medium">Posisi</p>
         </div>
-        <div className="col-span-1 flex items-center">
-          <p className="font-medium">Aksi</p>
-        </div>
+        {
+            Auth?.role === 'super-admin' ? (
+              <div className="col-span-1 flex items-center">
+                <p className="font-medium">Aksi</p>
+              </div>
+            ):
+              null
+        }
       </div>
 
       {dataUsers?.length > 0 && dataUsers
@@ -166,16 +174,21 @@ const Users: React.FC = () => {
               {data?.role}
             </p>
           </div>
-          <div className="col-span-1 flex items-center">
-            <div className='flex items-center'>
-              <div onClick={() => handleRemoveUser(data?.user_id)} className='w-[34px] h-[34px] rounded-[6px] mr-2 bg-[red] cursor-pointer hover:brightness-[90%] active:scale-[0.98] p-1 text-white flex items-center justify-center'>
-                <FaTrash />
+          {
+            Auth?.role === 'super-admin' ? (
+              <div className="col-span-1 flex items-center">
+                <div className='flex items-center'>
+                  <div onClick={() => handleRemoveUser(data?.user_id)} className='w-[34px] h-[34px] rounded-[6px] mr-2 bg-[red] cursor-pointer hover:brightness-[90%] active:scale-[0.98] p-1 text-white flex items-center justify-center'>
+                    <FaTrash />
+                  </div>
+                  <div onClick={() => handleUpdateUser(data)} className='w-[34px] h-[34px] bg-yellow-500 rounded-[6px] ml-2 cursor-pointer hover:brightness-[90%] active:scale-[0.98] p-1 text-white flex items-center justify-center'>
+                    <FaPenAlt />
+                  </div>
+                </div>
               </div>
-              <div onClick={() => handleUpdateUser(data)} className='w-[34px] h-[34px] bg-yellow-500 rounded-[6px] ml-2 cursor-pointer hover:brightness-[90%] active:scale-[0.98] p-1 text-white flex items-center justify-center'>
-                <FaPenAlt />
-              </div>
-            </div>
-          </div>
+            ):
+              null
+        }
         </div>
       ))}
     </div>
