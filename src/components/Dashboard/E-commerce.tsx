@@ -15,10 +15,8 @@ const Dashboard: React.FC = () => {
     (async () => {
       const responseUser = await API.getAllUsers()
       setDataUser(responseUser?.data?.data)
-      console.log('daftar anggota:', responseUser)
 
       const responseVisual = await API.getAllVisual()
-      console.log('daftar daat isual:', responseVisual)
       setDataVisual(responseVisual?.data?.data)
     })()
   }, [])

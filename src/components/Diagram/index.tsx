@@ -279,7 +279,7 @@ const Diagram: React.FC = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-6 border-t border-stroke px-4 py-4.5 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
+            <div className="grid border-t border-stroke px-4 py-4.5 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
               <div className="col-span-3 flex items-center">
                 <p className="font-medium">Judul data</p>
               </div>
@@ -335,7 +335,7 @@ const Diagram: React.FC = () => {
                 </div>
                 {
                   Auth?.role === 'super-admin' || Auth?.role === 'super-sub-admin' ? (
-                    <div className="col-span-3 md:  col-span-1 flex items-center">
+                    <div className="col-span-3 md:col-span-1 flex items-center">
                       <div className='flex items-center'>
                         <div onClick={() => handleRemoveTableu(data?.visual_id)} className='w-[34px] h-[34px] rounded-[6px] mr-2 bg-[red] cursor-pointer hover:brightness-[90%] active:scale-[0.98] p-1 text-white flex items-center justify-center'>
                           <FaTrash />
