@@ -10,12 +10,14 @@ import Image from "next/image";
 import { useDispatch } from "react-redux";
 import { authSignOut } from "@/redux/authSlice";
 import { clearUser, clearVisual } from "@/redux/informationSlice";
+import { FaSpinner } from "react-icons/fa";
 
 const SignIn: React.FC = () => {
 
   const dispatch = useDispatch()
 
   const [error, setError] = useState<string>('')
+  const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
     dispatch(authSignOut())
@@ -25,10 +27,18 @@ const SignIn: React.FC = () => {
 
   const handleErrorMessage = (error: string) => {
       setError(error)
+      setLoading(false)
+  }
+
+  const handleResponse = (response: number) => {
+    if(response === 200) {
+      setLoading(false)
+    }
   }
   
   const signInFormik = useAuthSignInFormik({
     onError: handleErrorMessage,
+    onResponse: handleResponse
   })
 
   return (
@@ -122,8 +132,8 @@ const SignIn: React.FC = () => {
             </div>
 
             <div className="mb-5">
-              <button type="submit" className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90">
-                Masuk sekarang
+              <button type="submit" onClick={() => setLoading(true)} className={`w-full rounded-lg flex items-center justify-center border border-primary ${loading ? 'bg-slate-300 text-slate-400 cursor-not-allowed' : 'bg-primary text-white cursor-pointer hover:bg-opacity-90 active:scale-[0.99]'} p-4 transition`}>
+                { loading ? <FaSpinner className="mr-3 animate-spin duration-100" /> : null} Masuk sekarang
               </button>
             </div>
 

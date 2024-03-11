@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 import API from '../../services/services';
 
-export const useAuthSignInFormik = ({onError}: {onError?: any}) => {
+export const useAuthSignInFormik = ({onError, onResponse}: {onError?: any, onResponse: any}) => {
     
     const navigate = useRouter()
     const dispatch = useDispatch()
@@ -31,8 +31,10 @@ export const useAuthSignInFormik = ({onError}: {onError?: any}) => {
                 console.log('response auth:', response?.data)
 
                 if(response.data.status === 200) {
+                    console.log(response)
                     dispatch(authSignIn(response?.data?.data))  
                     dispatch(saveToken(response?.data?.token))
+                    onResponse(response.status)
                     navigate.push('/dashboard')
                     resetForm()
                 }else {
