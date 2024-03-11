@@ -126,13 +126,13 @@ const Users: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-6 border-t border-stroke px-4 py-4.5 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
-        <div className="col-span-3 flex items-center">
+        <div className="col-span-2 flex items-center">
           <p className="font-medium">Username</p>
         </div>
         <div className="col-span-3 hidden items-center sm:flex">
           <p className="font-medium">Email</p>
         </div>
-        <div className="col-span-1 flex items-center">
+        <div className="col-span-2 flex items-center">
           <p className="font-medium">Posisi</p>
         </div>
         {
@@ -157,7 +157,7 @@ const Users: React.FC = () => {
           className="grid grid-cols-6 border-t border-stroke px-4 py-4.5 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5"
           key={key}
         >
-          <div className="col-span-3 flex items-center">
+          <div className="col-span-2 flex items-center">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
               <p className="text-sm text-black dark:text-white">
                 {data?.username}
@@ -169,7 +169,7 @@ const Users: React.FC = () => {
               {data?.email}
             </p>
           </div>
-          <div className="col-span-1 flex items-center">
+          <div className="col-span-2 flex items-center">
             <p className="text-sm text-black dark:text-white">
               {data?.role}
             </p>

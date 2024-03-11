@@ -13,7 +13,7 @@ import { FaSpinner } from 'react-icons/fa'
 const Diagram: React.FC = () => {
 
   const dispatch = useDispatch()
-  const visual = useSelector((state: any) => state.Information?.visual)
+  const Auth = useSelector((state: any) => state.Auth?.auth)
 
   const [loading, setLoading] = useState<boolean>(false)
   const [activeAdd, setActiveAdd] = useState<boolean>(false)
@@ -265,12 +265,17 @@ const Diagram: React.FC = () => {
                       />
                     </div>
                 </form>
-                <div onClick={() => setActiveAdd(!activeAdd)} className='w-max flex items-center h-max px-4 py-2 text-center cursor-pointer hover:brightness-[90%] active:scale-[0.98] bg-blue-500 text-white rounded-full ml-3 shdow-md'>
-                    <FaPlusCircle /> 
-                    <p className='ml-3'>
-                      Tambah data baru
-                    </p>
-                </div>
+                {
+                  Auth?.role === 'super-admin' || Auth?.role === 'super-sub-admin' ? (
+                    <div onClick={() => setActiveAdd(!activeAdd)} className='w-max flex items-center h-max px-4 py-2 text-center cursor-pointer hover:brightness-[90%] active:scale-[0.98] bg-blue-500 text-white rounded-full ml-3 shdow-md'>
+                        <FaPlusCircle /> 
+                        <p className='ml-3'>
+                          Tambah data baru
+                        </p>
+                    </div>
+                  ):
+                    null
+                }
               </div>
             </div>
 
@@ -284,9 +289,14 @@ const Diagram: React.FC = () => {
               <div className="col-span-2 flex items-center">
                 <p className="font-medium">Nama (<i>Uploader</i>)</p>
               </div>
-              <div className="col-span-1 flex items-center">
-                <p className="font-medium">Aksi</p>
-              </div>
+              {
+                Auth?.role === 'super-admin' || Auth?.role === 'super-sub-admin' ? (
+                  <div className="col-span-1 flex items-center">
+                    <p className="font-medium">Aksi</p>
+                  </div>
+                ):
+                  null
+              }
             </div>
 
             {dataVisual.length > 0 && 
@@ -323,16 +333,21 @@ const Diagram: React.FC = () => {
                     {data?.uploader}
                   </p>
                 </div>
-                <div className="col-span-1 flex items-center">
-                  <div className='flex items-center'>
-                    <div onClick={() => handleRemoveTableu(data?.visual_id)} className='w-[34px] h-[34px] rounded-[6px] mr-2 bg-[red] cursor-pointer hover:brightness-[90%] active:scale-[0.98] p-1 text-white flex items-center justify-center'>
-                      <FaTrash />
+                {
+                  Auth?.role === 'super-admin' || Auth?.role === 'super-sub-admin' ? (
+                    <div className="col-span-1 flex items-center">
+                      <div className='flex items-center'>
+                        <div onClick={() => handleRemoveTableu(data?.visual_id)} className='w-[34px] h-[34px] rounded-[6px] mr-2 bg-[red] cursor-pointer hover:brightness-[90%] active:scale-[0.98] p-1 text-white flex items-center justify-center'>
+                          <FaTrash />
+                        </div>
+                        <div onClick={() => {handleGetData(data), setActiveUpdate(true)}} className='w-[34px] h-[34px] bg-yellow-500 rounded-[6px] ml-2 cursor-pointer hover:brightness-[90%] active:scale-[0.98] p-1 text-white flex items-center justify-center'>
+                          <FaPenAlt />
+                        </div>
+                      </div>
                     </div>
-                    <div onClick={() => {handleGetData(data), setActiveUpdate(true)}} className='w-[34px] h-[34px] bg-yellow-500 rounded-[6px] ml-2 cursor-pointer hover:brightness-[90%] active:scale-[0.98] p-1 text-white flex items-center justify-center'>
-                      <FaPenAlt />
-                    </div>
-                  </div>
-                </div>
+                  ):
+                    null
+                }
               </div>
             ))}
           </div>

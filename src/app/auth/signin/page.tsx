@@ -1,16 +1,15 @@
 "use client"
 
 import Images from "@/public/images/charts.svg";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 import ErrorMessage from "@/components/ErrorMessage";
 import { useAuthSignInFormik } from "@/components/Validation/useAuthSignInFormik";
-import Image from "next/image";
-import { useDispatch } from "react-redux";
 import { authSignOut } from "@/redux/authSlice";
 import { clearUser, clearVisual } from "@/redux/informationSlice";
+import Image from "next/image";
 import { FaSpinner } from "react-icons/fa";
+import { useDispatch } from "react-redux";
 
 const SignIn: React.FC = () => {
 
@@ -46,7 +45,7 @@ const SignIn: React.FC = () => {
       <div className="w-full h-screen border-r border-r-slate-300 bg-white border-stroke dark:border-strokedark xl:w-[35vw] xl:border-l-2">
         <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
           <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
-            Masuk sekarang
+            Dashboard
           </h2>
 
           {
@@ -137,14 +136,14 @@ const SignIn: React.FC = () => {
               </button>
             </div>
 
-            <div className="mt-6 text-center">
+            {/* <div className="mt-6 text-center">
               <p>
                 Belum punya akun?{" "}
                 <Link href="/auth/signup" className="text-primary">
                   Daftar
                 </Link>
               </p>
-            </div>
+            </div> */}
           </form>
         </div>
       </div>
