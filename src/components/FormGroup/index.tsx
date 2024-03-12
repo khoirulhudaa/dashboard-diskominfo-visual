@@ -78,7 +78,7 @@ const FormGroup: React.FC<any> = ({
         case "signup" :
             return (
                 <form onSubmit={accountFormik.handleSubmit} 
-                className={`w-[60vw] h-max rounded-[20px] bg-white p-7 border border-slate-300 `}>
+                className={`w-screen md:w-[60vw] h-screen md:h-[94vh] overflow-y-auto md:rounded-[20px] bg-white p-5 md:p-7 border border-slate-300`}>
                 {
                     error !== '' ? (
                         <ErrorMessage error={error} />
@@ -87,8 +87,8 @@ const FormGroup: React.FC<any> = ({
                 }
                 <div className='w-full flex h-max'>
                     <div className='w-full p-2 h-full'>
-                        <div className='w-full mb-5 flex items-center justify-between'>
-                            <div className='w-1/2 pr-6'>
+                        <div className='w-full mb-5 md:flex items-center justify-between'>
+                            <div className='w-full md:w-1/2 md:pr-6'>
                                 <InputField 
                                     label='Username'
                                     name='username'
@@ -101,7 +101,7 @@ const FormGroup: React.FC<any> = ({
                                     onTouched={accountFormik.touched.username}
                                 />
                             </div>
-                            <div className='w-1/2'>
+                            <div className='w-full md:mt-0 mt-5 md:w-1/2'>
                                 <InputField 
                                     label='Email'
                                     name='email'
@@ -240,7 +240,7 @@ const FormGroup: React.FC<any> = ({
         case "visual":
             return (
                 <form onSubmit={visualFormik.handleSubmit} 
-                className={`w-[60vw] h-max rounded-[20px] bg-white p-7 border border-slate-300 `}>
+                className={`w-screen md:w-[60vw] h-screen md:h-[94vh] overflow-y-auto md:rounded-[20px] bg-white p-5 md:p-7 border border-slate-300`}>
                 {
                     error !== '' ? (
                         <ErrorMessage error={error} />
@@ -249,8 +249,8 @@ const FormGroup: React.FC<any> = ({
                 }
                 <div className='w-full flex h-max'>
                     <div className='w-full p-2 h-full'>
-                        <div className='w-full mb-5 flex items-center justify-between'>
-                            <div className='w-1/2 pr-6'>
+                        <div className='w-full mb-5 md:flex items-center justify-between'>
+                            <div className='w-full md:w-1/2 pr-6'>
                                 <InputField 
                                     label='Judul data'
                                     name='title'
@@ -263,7 +263,7 @@ const FormGroup: React.FC<any> = ({
                                     onTouched={visualFormik.touched.title}
                                 />
                             </div>
-                            <div className='w-1/2'>
+                            <div className='w-full md:w-1/2 mt-5 md:mt-0'>
                                 <InputField 
                                     label='Nama (Uploader)'
                                     name='uploader'

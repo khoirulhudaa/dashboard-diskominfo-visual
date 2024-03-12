@@ -41,9 +41,9 @@ const SignIn: React.FC = () => {
   })
 
   return (
-    <div className="flex w-screen flex items-center h-screen overflow-hidden">
+    <div className="flex w-screen flex items-center justify-center h-screen overflow-hidden">
       <div className="w-full h-screen border-r border-r-slate-300 bg-white border-stroke dark:border-strokedark w-[100vw] md:w-[35vw] xl:border-l-2">
-        <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
+        <div className="w-full h-full flex justify-center flex-col p-4 sm:p-12.5 xl:p-17.5">
           <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
             Dashboard
           </h2>

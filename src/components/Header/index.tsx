@@ -1,19 +1,15 @@
-import Link from "next/link";
-import DarkModeSwitcher from "./DarkModeSwitcher";
-import DropdownMessage from "./DropdownMessage";
-import DropdownNotification from "./DropdownNotification";
-import DropdownUser from "./DropdownUser";
 import Image from "next/image";
+import Link from "next/link";
+import DropdownUser from "./DropdownUser";
 
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;
   setSidebarOpen: (arg0: boolean) => void;
 }) => {
   return (
-    <header className="sticky top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
-      <div className="flex flex-grow items-center justify-between px-4 py-4 shadow-2 md:px-6 2xl:px-11">
+    <header className="sticky top-0 z-999 flex items-center bg-white w-full drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
+      <div className="flex items-end w-full justify-end px-4 py-4 shadow-2 md:px-6 2xl:px-11">
         <div className="flex items-center gap-2 sm:gap-4 lg:hidden">
-          {/* <!-- Hamburger Toggle BTN --> */}
           <button
             aria-controls="sidebar"
             onClick={(e) => {
@@ -54,9 +50,8 @@ const Header = (props: {
               </span>
             </span>
           </button>
-          {/* <!-- Hamburger Toggle BTN --> */}
 
-          <Link className="block flex-shrink-0 lg:hidden" href="/">
+          <Link className="block flex-shrink-0 lg:hidden" href="/dashboard">
             <Image
               width={32}
               height={32}
@@ -66,10 +61,8 @@ const Header = (props: {
           </Link>
         </div>
 
-        <div className="flex items-center gap-3 2xsm:gap-7">
-          {/* <!-- User Area --> */}
+        <div className="w-full flex items-end gap-3 2xsm:gap-7">
           <DropdownUser />
-          {/* <!-- User Area --> */}
         </div>
       </div>
     </header>

@@ -63,8 +63,8 @@ const Users: React.FC = () => {
 
   return (
     <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-      <div className="px-4 md:flex w-full items-center justify-between py-6 md:px-6 xl:px-7.5">
-        <h4 className="text-xl font-semibold text-black dark:text-white">
+      <div className="px-4 w-full items-center justify-between py-6 md:px-6 xl:px-7.5">
+        <h4 className="text-xl font-semibold md:mb-6 mb-0 text-black dark:text-white">
           Data anggota
         </h4>
         {
@@ -76,7 +76,7 @@ const Users: React.FC = () => {
             null
         }
 
-        <div className='w-max flex items-center md:mt-0 mt-5'>
+        <div className='w-full flex items-center justify-between md:mt-0 mt-5'>
           <form action="https://formbold.com/s/unique_form_id" method="POST">
               <div className="relative">
                 <button className="absolute left-3 top-1/2 -translate-y-1/2">
@@ -108,7 +108,7 @@ const Users: React.FC = () => {
                   name='search'
                   onChange={(e: any) => setSearch(e.target.value)}
                   placeholder="Cari anggota sekarang..."
-                  className="w-full bg-transparent pl-10 pr-6 font-medium p-2 outline-0 border-[1px] border-slate-300 rounded-full w-[80%] md:w-[100%]"
+                  className="w-[90%] bg-transparent pl-10 pr-6 font-medium p-2 outline-0 border-[1px] border-slate-300 rounded-full md:w-[120%]"
                 />
               </div>
           </form>

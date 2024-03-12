@@ -50,7 +50,7 @@ const DropdownUser = () => {
   }
 
   return (
-    <div className="relative">
+    <div className="relative ml-auto">
       <Link
         ref={trigger}
         onClick={() => setDropdownOpen(!dropdownOpen)}

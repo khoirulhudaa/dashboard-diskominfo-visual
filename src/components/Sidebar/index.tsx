@@ -65,8 +65,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
       }`}
     >
       {/* <!-- SIDEBAR HEADER --> */}
-      <div className="flex bg-white items-center justify-between gap-2 px-6 py-2 h-[68px]">
-        <Link href="/">
+      <div className="flex bg-white items-center justify-between gap-2 px-6 py-2 h-[71px]">
+        <Link href="/dashboard">
           <Image
             width={150}
             height={30}
