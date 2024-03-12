@@ -139,8 +139,8 @@ const Users: React.FC = () => {
         </div>
         {
             Auth?.role === 'super-admin' ? (
-              <div className="col-span-2 md:col-span-1 flex items-end">
-                <p className="font-medium md:ml-0 ml-12">Aksi</p>
+              <div className="col-span-4 md:col-span-1 flex items-end">
+                <p className="font-medium">Aksi</p>
               </div>
             ):
               null
@@ -156,7 +156,7 @@ const Users: React.FC = () => {
       })
       .map((data: any, key: number) => (
         <div
-          className="grid grid-cols-6 border-t border-stroke px-4 py-4.5 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5"
+          className="grid border-t border-stroke px-4 py-4.5 dark:border-strokedark grid-cols-8 md:px-6 2xl:px-7.5"
           key={key}
         >
           <div className="col-span-4 md:col-span-2 flex items-center">
@@ -178,7 +178,7 @@ const Users: React.FC = () => {
           </div>
           {
             Auth?.role === 'super-admin' ? (
-              <div className="col-span-2 md:col-span-1 flex">
+              <div className="col-span-4 md:col-span-1 flex">
                 <div className='flex'>
                   <div onClick={() => handleRemoveUser(data?.user_id)} className='w-[34px] h-[34px] rounded-[6px] mr-2 bg-[red] cursor-pointer hover:brightness-[90%] active:scale-[0.98] p-1 text-white flex items-center justify-center'>
                     <FaTrash />

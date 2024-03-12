@@ -280,7 +280,7 @@ const Diagram: React.FC = () => {
             </div>
 
             <div className="grid border-t border-stroke px-4 py-4.5 dark:border-strokedark grid-cols-8 md:px-6 2xl:px-7.5">
-              <div className="col-span-5 flex items-center">
+              <div className="col-span-5 md:col-span-3 flex items-center">
                 <p className="font-medium">Judul data</p>
               </div>
               <div className="col-span-2 hidden items-center sm:flex">
@@ -314,7 +314,7 @@ const Diagram: React.FC = () => {
                 className="grid border-t border-stroke px-4 py-4.5 dark:border-strokedark grid-cols-8 md:px-6 2xl:px-7.5"
                 key={key}
               >
-                <div className="col-span-5 flex items-center">
+                <div className="col-span-5 md:col-span-3 flex items-center">
                   <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
                     <p className="text-sm text-black dark:text-white">
                       {data?.title}
