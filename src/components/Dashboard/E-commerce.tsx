@@ -23,7 +23,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <>
-      <div className="w-[100%] md:mb-2 h-max items-center bg-white p-12 shadow-md">
+      <div className="w-[100%] md:mb-2 h-max items-center bg-white p-6 md:px-7 md:py-12 shadow-md">
         <h2 className="text-[28px] flex text-black">Selamat datang <b className='hidden ml-[10px] md:flex'>{Auth?.username}</b> 👋</h2>
       </div>
 
