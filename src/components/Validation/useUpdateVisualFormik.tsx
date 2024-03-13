@@ -14,6 +14,7 @@ export const useUpdateVisualFormik = ({onError, onResponse}: {onError?: any, onR
             uploader: '',
             description: '',
             link: '',
+            type_dinas: '',
             image: null,
             old_image: null
         },
@@ -28,6 +29,8 @@ export const useUpdateVisualFormik = ({onError, onResponse}: {onError?: any, onR
             .required('Tidak boleh kosong!'),
             link: Yup.string()
             .required('Tidak boleh kosong!'),
+            type_dinas: Yup.string()
+            .required('Tidak boleh kosong!'),
         }),
         onSubmit: async (values: any, {resetForm}) => {
             try {
@@ -37,6 +40,7 @@ export const useUpdateVisualFormik = ({onError, onResponse}: {onError?: any, onR
                 formData.append('title', values.title)
                 formData.append('uploader', values.uploader)
                 formData.append('description', values.description)
+                formData.append('type_dinas', values.type_dinas)
                 formData.append('link', values.link)
                 if(values.image && values.image !== null) {
                     formData.append('image', values.image)
@@ -65,6 +69,7 @@ export const useUpdateVisualFormik = ({onError, onResponse}: {onError?: any, onR
             uploader: visual?.uploader ?? '',
             description: visual?.description ?? '',
             link: visual?.link ?? '',
+            type_dinas: visual?.type_dinas ?? '',
             old_image: visual?.image ?? '',
         })
     }, [visual])

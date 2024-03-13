@@ -31,7 +31,7 @@ const InputField: React.FC<any> = ({
                     >
                         {
                             options?.map((data: any, index: number) => (
-                                <option key={index} value={data?.name_subdistrict ?? data?.value}>{data?.name_subdistrict ?? data?.label}</option>
+                                <option key={index} value={data?.value}>{data?.label}</option>
                             ))
                         }
                     </select>

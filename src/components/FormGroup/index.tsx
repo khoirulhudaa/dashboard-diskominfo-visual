@@ -1,13 +1,15 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaSpinner } from 'react-icons/fa'
 import ErrorMessage from '../ErrorMessage'
 import InputField from '../InputField'
 import SweetAlert from '../SweetAlert'
 import { useAuthSignUpFormik } from '../Validation/useAuthSignUpFormik'
-import { useVisualFormik } from '../Validation/useVisualFormik'
+import { useDinasFormik } from '../Validation/useDinasFormik'
 import { useUpdateAuthFormik } from '../Validation/useUpdateAuthFormik'
+import { useVisualFormik } from '../Validation/useVisualFormik'
+import API from '@/services/services'
 
 const FormGroup: React.FC<any> = ({
     type,
@@ -17,6 +19,26 @@ const FormGroup: React.FC<any> = ({
 
     const [loading, setLoading] = useState<boolean>(false)
     const [error, setError] = useState<string>('')
+    const [dinas, setDinas] = useState<any[]>([])
+
+    useEffect(() => {
+        (async () => {
+            const response = await API.getAllDinas()
+            const transformData = (dataArray: any) => {
+                // Transform the data array into an array of new objects
+                const transformedArray = dataArray.map((item: any) => ({ label: item.dinas_name, value: item.dinas_name }));
+               
+                // Add an object with label and value at the beginning of the array
+                transformedArray.unshift({ label: "Pilih jenis dinas", value: "", disabled: true  });
+               
+                return transformedArray;
+               };
+               
+            // Use the function to transform the data
+            const newObjects = transformData(response?.data?.data);
+            setDinas(newObjects)
+        })()
+    }, [])
 
     const handleResponse = () => {
         setError('')
@@ -53,6 +75,10 @@ const FormGroup: React.FC<any> = ({
             icon: 'success'
         })
     }
+
+    const stopLoading = () => {
+        setLoading(false)
+    }
     
     const handleErrorMessage = (error: string) => {
         setError(error)
@@ -61,7 +87,8 @@ const FormGroup: React.FC<any> = ({
 
     const visualFormik = useVisualFormik({
         onError: handleErrorMessage,
-        onResponse: handleResponse
+        onResponse: handleResponse,
+        stopLoading
     })
 
     const accountFormik = useAuthSignUpFormik({
@@ -72,6 +99,11 @@ const FormGroup: React.FC<any> = ({
     const updateAccountFormik = useUpdateAuthFormik({
         onError: handleErrorMessage,
         onResponse: handleResponseUpdateUser
+    })
+
+    const dinasFormik = useDinasFormik({
+        onError: handleErrorMessage,
+        onResponse: handleResponse
     })
 
     switch(type) {
@@ -268,11 +300,7 @@ const FormGroup: React.FC<any> = ({
                                     label='Nama (Uploader)'
                                     name='uploader'
                                     id='uploader'
-                                    value={visualFormik.values.uploader}
-                                    onChange={visualFormik.handleChange}
-                                    onBlur={visualFormik.handleBlur}
-                                    onError={visualFormik.errors.uploader}
-                                    onTouched={visualFormik.touched.uploader}
+                                    value={'Diskominfo Kabupaten Cirebon'}
                                 />
                             </div>
                         </div>
@@ -311,7 +339,7 @@ const FormGroup: React.FC<any> = ({
                             </div>
                         </div>
                         <div className='w-full mb-5 flex items-center justify-between'>
-                            <div className='w-full'>
+                            <div className='w-full md:w-1/2 pr-6'>
                                 <InputField 
                                     label='Link tableu'
                                     name='link'
@@ -324,11 +352,26 @@ const FormGroup: React.FC<any> = ({
                                     onTouched={visualFormik.touched.link}
                                 />
                             </div>
+                            <div className='w-full md:w-1/2 pr-6'>
+                                <InputField 
+                                    label='Jenis dinas'
+                                    name='type_dinas'
+                                    id='type_dinas'
+                                    type="select-input"
+                                    options={dinas}
+                                    placeholder='https://......'
+                                    value={visualFormik.values.type_dinas}
+                                    onChange={visualFormik.handleChange}
+                                    onBlur={visualFormik.handleBlur}
+                                    onError={visualFormik.errors.type_dinas}
+                                    onTouched={visualFormik.touched.type_dinas}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div className='w-max flex items-center'>
-                    <button onClick={loading ? () => null : () => setLoading(true)} className={`w-max hover:brightness-[90%] active:scale-[0.99] duration-100 h-max flex items-center px-5 py-3 rounded-full text-[14px] ${loading ? 'bg-slate-300 text-slate-500' : 'bg-blue-500 text-white'}`}>
+                    <button onClick={loading && visualFormik.values.title === '' || visualFormik.values.description === '' || visualFormik.values.image === null || visualFormik.values.link === '' || visualFormik.values.type_dinas === '' ? () => null : () => setLoading(true)} className={`w-max hover:brightness-[90%] active:scale-[0.99] duration-100 h-max flex items-center px-5 py-3 rounded-full text-[14px] ${loading ? 'bg-slate-300 text-slate-500' : 'bg-blue-500 text-white'}`}>
                         {
                           loading ? (
                             <div className='flex items-center'>
@@ -340,6 +383,57 @@ const FormGroup: React.FC<any> = ({
                           ):
                             <p>
                                 Tambah data visual
+                            </p>
+                        }
+                    </button>
+                    <button onClick={close} className='w-max ml-4 hover:brightness-[90%] active:scale-[0.99] duration-100 h-max flex items-center px-5 py-3 rounded-full text-[14px] bg-white border border-black text-black'>
+                        <p>
+                            Batalkan
+                        </p>
+                    </button>
+                </div>
+                </form>
+            )
+        case "dinas":
+            return (
+                <form onSubmit={dinasFormik.handleSubmit} 
+                className={`w-screen md:w-[60vw] h-screen md:h-[40vh] overflow-y-auto md:rounded-[20px] bg-white p-5 md:p-7 border border-slate-300`}>
+                {
+                    error !== '' ? (
+                        <ErrorMessage error={error} />
+                    ):
+                        null
+                }
+                <div className='w-full flex h-max'>
+                    <div className='w-full p-2 h-full'>
+                        <div className='w-full mb-5 md:flex items-center justify-between'>
+                            <InputField 
+                                label='Nama dinas'
+                                name='dinas_name'
+                                id='dinas_name'
+                                value={dinasFormik.values.dinas_name}
+                                placeholder='Masukan judul data'
+                                onChange={dinasFormik.handleChange}
+                                onBlur={dinasFormik.handleBlur}
+                                onError={dinasFormik.errors.dinas_name}
+                                onTouched={dinasFormik.touched.dinas_name}
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div className='w-max flex items-center'>
+                    <button onClick={loading ? () => null : () => setLoading(true)} className={`w-max hover:brightness-[90%] active:scale-[0.99] duration-100 h-max flex items-center px-5 py-3 rounded-full text-[14px] ${loading ? 'bg-slate-300 text-slate-500' : 'bg-blue-500 text-white'}`}>
+                        {
+                          loading ? (
+                            <div className='flex items-center'>
+                                <FaSpinner className='animate-spin duration-200' />
+                                <p className='ml-3'>
+                                    Tambah data dinas
+                                </p>
+                            </div>
+                          ):
+                            <p>
+                                Tambah data dinas
                             </p>
                         }
                     </button>

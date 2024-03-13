@@ -1,21 +1,21 @@
-import { Metadata } from "next";
+import Dinas from "@/components/Dinas";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
-import Users from "@/components/Users";
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Cirebon visual data",
   description: "Website resmi Diskominfo Kabupaten Cirebon",
 };
 
-const UsersPage = () => {
+const DinasPage = () => {
   return (
     <DefaultLayout>
 
       <div className="flex flex-col gap-10">
-        <Users />
+        <Dinas />
       </div>
     </DefaultLayout>
   );
 };
 
-export default UsersPage
+export default DinasPage

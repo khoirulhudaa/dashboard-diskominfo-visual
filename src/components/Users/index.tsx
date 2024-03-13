@@ -128,10 +128,13 @@ const Users: React.FC = () => {
       </div>
 
       <div className="grid border-t border-stroke px-4 py-4.5 dark:border-strokedark grid-cols-8 md:px-6 2xl:px-7.5">
+        <div className="col-span-1 hidden md:flex items-center">
+          <p className="font-medium">No</p>
+        </div>
         <div className="col-span-4 md:col-span-2 flex items-center">
           <p className="font-medium">Username</p>
         </div>
-        <div className="col-span-3 items-center hidden md:flex">
+        <div className="col-span-2 items-center hidden md:flex">
           <p className="font-medium">Email</p>
         </div>
         <div className="col-span-2 flex items-center hidden md:flex">
@@ -159,6 +162,13 @@ const Users: React.FC = () => {
           className="grid border-t border-stroke px-4 py-4.5 dark:border-strokedark grid-cols-8 md:px-6 2xl:px-7.5"
           key={key}
         >
+          <div className="col-span-1 hidden md:flex items-center">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+              <p className="text-sm text-black dark:text-white">
+                {key + 1}
+              </p>
+            </div>
+          </div>
           <div className="col-span-4 md:col-span-2 flex items-center">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
               <p className="text-sm text-black dark:text-white">
@@ -166,7 +176,7 @@ const Users: React.FC = () => {
               </p>
             </div>
           </div>
-          <div className="col-span-3 items-center hidden md:flex">
+          <div className="col-span-2 items-center hidden md:flex">
             <p className="text-sm text-black dark:text-white">
               {data?.email}
             </p>

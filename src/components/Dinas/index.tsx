@@ -1,16 +1,15 @@
 "use client"
-import { getVisual } from '@/redux/informationSlice';
+import { getDinas, getVisual } from '@/redux/informationSlice';
 import API from '@/services/services';
 import React, { useEffect, useState } from 'react';
-import { FaPenAlt, FaPlusCircle, FaTrash } from 'react-icons/fa';
+import { FaPenAlt, FaPlusCircle, FaSpinner, FaTrash } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import ErrorMessage from '../ErrorMessage';
-import ModelVisual from '../Modal/modalVisual';
+import ModelDinas from '../Modal/modalDinas';
 import SweetAlert from '../SweetAlert';
-import { useUpdateVisualFormik } from '../Validation/useUpdateVisualFormik';
-import { FaSpinner } from 'react-icons/fa'
+import { useUpdateDinasFormik } from '../Validation/useUpdateDinasFormik';
 
-const Diagram: React.FC = () => {
+const Dinas: React.FC = () => {
 
   const dispatch = useDispatch()
   const Auth = useSelector((state: any) => state.Auth?.auth)
@@ -19,15 +18,15 @@ const Diagram: React.FC = () => {
   const [activeAdd, setActiveAdd] = useState<boolean>(false)
   const [activeUpdate, setActiveUpdate] = useState<boolean>(false)
   const [status, setStatus] = useState<boolean>(false)
-  const [dataVisual, setDataVisual] = useState<any[]>([])
+  const [dataDinas, setDataDinas] = useState<any[]>([])
   const [search, setSearch] = useState<string>('')
   const [error, setError] = useState<string>('')
 
   useEffect(() => {
 
     (async () => {
-      const response = await API.getAllVisual()
-      setDataVisual(response?.data?.data)
+      const response = await API.getAllDinas()
+      setDataDinas(response?.data?.data)
       console.log(response?.data?.data)
     })()
     setStatus(false)
@@ -35,13 +34,13 @@ const Diagram: React.FC = () => {
   }, [status])
 
   const handleRemoveFinally = async (id: string) => {
-    const response = await API.removeVisual(id)
+    const response = await API.removeDinas(id)
     console.log(response)
     console.log(id)
     if(response?.data?.status === 200) {
       setStatus(true)
       SweetAlert({
-        title: 'Berhasil hapus data!',
+        title: 'Berhasil hapus dinas!',
         showCancelButton: false
       })
     }
@@ -49,7 +48,7 @@ const Diagram: React.FC = () => {
 
   const handleRemoveTableu = (id: string) => {
     SweetAlert({
-      title: 'Yakin hapus data ?',
+      title: 'Yakin hapus dinas ?',
       icon: 'question',
       onClick: () => handleRemoveFinally(id)
     })
@@ -59,17 +58,8 @@ const Diagram: React.FC = () => {
     setStatus(true)
   }
 
-  const generateRandomString = () => {
-      const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      let result = '';
-      for (let i = 0; i < 10; i++) {
-        result += characters.charAt(Math.floor(Math.random() * characters.length));
-      }
-      return result
-  };
-
   const handleGetData = (data?: any) => {
-    dispatch(getVisual(data))
+    dispatch(getDinas(data))
   }
 
   const handleResponseUpdate = () => {
@@ -89,7 +79,7 @@ const Diagram: React.FC = () => {
       setError(error)
   }
 
-  const updateVisual = useUpdateVisualFormik({
+  const updateDinas = useUpdateDinasFormik({
     onError: handleErrorMessage,
     onResponse: handleResponseUpdate,
   })
@@ -109,101 +99,37 @@ const Diagram: React.FC = () => {
                 }
                 <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
                   <h3 className="font-medium text-black dark:text-white">
-                    Perbarui data visual
+                    Perbarui data dinas
                   </h3>
                 </div>
                 <div className="flex flex-col gap-5.5 p-6.5">
                   <div>
                     <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                      Judul data
+                      Nama dinas
                     </label>
                     <input
                       type="text"
-                      name='title'
-                      id='title'
-                      value={updateVisual?.values.title}
-                      onChange={updateVisual?.handleChange}
+                      name='dinas_name'
+                      id='dinas_name'
+                      value={updateDinas?.values.dinas_name}
+                      onChange={updateDinas?.handleChange}
                       className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
-                  </div>
-
-                  <div>
-                    <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                      Deskripsi data
-                    </label>
-                    <input
-                      type="text"
-                      name='description'
-                      id='description'
-                      value={updateVisual?.values.description}
-                      onChange={updateVisual?.handleChange}
-                      className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                      Uploader 
-                    </label>
-                    <input
-                      type="text"
-                      name='uploader'
-                      id='uploader'
-                      value={updateVisual?.values.uploader}
-                      onChange={updateVisual?.handleChange}
-                      className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary dark:disabled:bg-black"
-                    />
-                  </div>
-                
-                  <div>
-                    <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                      Link 
-                    </label>
-                    <input
-                      type="text"
-                      name='link'
-                      id='link'
-                      value={updateVisual?.values.link}
-                      onChange={updateVisual?.handleChange}
-                      className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary dark:disabled:bg-black"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                      Thumbnail lama 
-                    </label>
-                    <div className='w-[300px] h-max bg-blue-500 rounded-lg overflow-hidden'>
-                      <img src={updateVisual?.values.old_image} alt="thumbnil" />
-                    </div>
-                  </div>
-
-                  <div className='w-full'>
-                      <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="file_input">Thumbnail baru (Opsional)</label>
-                      <input 
-                        name='image' 
-                        className="block w-full text-sm text-gray-900 border border-black rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 p-3 focus:outline-none dark:bg-black dark:border-black dark:placeholder-gray-400" 
-                        onChange={(values: any) => {
-                          updateVisual.setFieldValue('image', values.target.files[0])
-                        }} 
-                        id='image' 
-                        type="file" 
-                      />
                   </div>
                   
                   <div className='w-max mt-6 flex items-center'>
-                    <button onClick={loading ? () => null : () => {updateVisual.handleSubmit(), setLoading(true)}} type={`${loading ? 'button' : 'submit'}`} className={`w-max hover:brightness-[90%] active:scale-[0.99] duration-100 h-max flex items-center px-5 py-3 rounded-full text-[14px] ${loading ? 'bg-slate-300 text-slate-500' : 'bg-blue-500 text-white'}`}>
+                    <button onClick={loading ? () => null : () => {updateDinas.handleSubmit(), setLoading(true)}} type={`${loading ? 'button' : 'submit'}`} className={`w-max hover:brightness-[90%] active:scale-[0.99] duration-100 h-max flex items-center px-5 py-3 rounded-full text-[14px] ${loading ? 'bg-slate-300 text-slate-500' : 'bg-blue-500 text-white'}`}>
                         {
                           loading ? (
                             <div className='flex items-center'>
                               <FaSpinner className='animate-spin duration-200' />
                               <p className='ml-3'>
-                                  Perbarui data visual
+                                  Perbarui data dinas
                               </p>
                             </div>
                           ):
                             <p>
-                                Perbarui data visual
+                                Perbarui data dinas
                             </p>
                         }
                     </button>
@@ -221,12 +147,12 @@ const Diagram: React.FC = () => {
           <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
             <div className="px-4 w-full items-center justify-between py-6 md:px-6 xl:px-7.5">
               <h4 className="text-xl font-semibold mb-6 mb:- text-black dark:text-white">
-                Data visual
+                Data dinas
               </h4>
               <div className='w-full flex items-center justify-between md:mt-0 mt-5'>
                 {
                   activeAdd ? (
-                    <ModelVisual handleStatus={() => handleStatus()} close={() => setActiveAdd(false)} />
+                    <ModelDinas handleStatus={() => handleStatus()} close={() => setActiveAdd(false)} />
                   ):
                     null
                 }
@@ -260,17 +186,17 @@ const Diagram: React.FC = () => {
                         type="text"
                         name='search'
                         onChange={(e: any) => setSearch(e.target.value)}
-                        placeholder="Cari data sekarang..."
+                        placeholder="Cari nama dinas sekarang..."
                         className="w-[90%] bg-transparent pl-10 pr-6 font-medium p-2 outline-0 border-[1px] border-slate-300 rounded-full md:w-[120%]"
                       />
                     </div>
                 </form>
                 {
-                  Auth?.role === 'super-admin' || Auth?.role === 'super-sub-admin' ? (
+                  Auth?.role === 'super-admin' ? (
                     <div onClick={() => setActiveAdd(!activeAdd)} className='w-max flex items-center h-max px-4 py-4 md:py-2 text-center cursor-pointer hover:brightness-[90%] active:scale-[0.98] bg-blue-500 text-white rounded-full ml-[-20px] md:ml-3 shdow-md'>
                         <FaPlusCircle /> 
                         <p className='ml-3 md:inline hidden'>
-                          Tambah data baru
+                          Tambah dinas baru
                         </p>
                     </div>
                   ):
@@ -280,21 +206,15 @@ const Diagram: React.FC = () => {
             </div>
 
             <div className="grid border-t border-stroke px-4 py-4.5 dark:border-strokedark grid-cols-8 md:px-6 2xl:px-7.5">
-              <div className="col-span-1 hidden sm:flex items-center">
+              <div className="col-span-2 flex items-center">
                 <p className="font-medium">No</p>
               </div>
-              <div className="col-span-5 md:col-span-2 flex items-center">
-                <p className="font-medium">Judul data</p>
-              </div>
-              <div className="col-span-2 hidden items-center sm:flex">
-                <p className="font-medium">Link tableu</p>
-              </div>
-              <div className="col-span-2 hidden items-center sm:flex">
-                <p className="font-medium">Dinas</p>
+              <div className="col-span-4 hidden items-center sm:flex">
+                <p className="font-medium">Nama dinas</p>
               </div>
               {
-                Auth?.role === 'super-admin' || Auth?.role === 'super-sub-admin' ? (
-                  <div className="col-span-3 md:col-span-1 flex items-center">
+                Auth?.role === 'super-admin' ? (
+                  <div className="col-span-2 md:col-span-1 flex items-center">
                     <p className="font-medium">Aksi</p>
                   </div>
                 ):
@@ -302,12 +222,12 @@ const Diagram: React.FC = () => {
               }
             </div>
 
-            {dataVisual.length > 0 && 
-              dataVisual
+            {dataDinas.length > 0 && 
+              dataDinas
               .filter((sub: any) => {
                 // Jika pencarian tidak kosong, filter data berdasarkan label yang cocok dengan pencarian
                 if (search && search !== '') {
-                  return sub.title.toLowerCase().includes(search.toLowerCase());
+                  return sub.dinas_name.toLowerCase().includes(search.toLowerCase());
                 }
                 // Jika pencarian kosong, tampilkan semua data
                 return true;
@@ -317,37 +237,25 @@ const Diagram: React.FC = () => {
                 className="grid border-t border-stroke px-4 py-4.5 dark:border-strokedark grid-cols-8 md:px-6 2xl:px-7.5"
                 key={key}
               >
-                 <div className="col-span-1 hidden sm:flex items-center">
-                  <p className="text-sm text-black dark:text-white">
-                    {key + 1}
-                  </p>
-                </div>
-                <div className="col-span-5 md:col-span-2 flex items-center">
+                <div className="col-span-2 flex items-center">
                   <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-                    <p className="text-sm text-black w-[94%] dark:text-white">
-                      {data?.title}
+                    <p className="text-sm text-black dark:text-white">
+                      {key + 1}
                     </p>
                   </div>
                 </div>
-                <div className="col-span-2 hidden items-center sm:flex">
-                  <a href={data?.link} className='text-blue-500 underline' target='__blank'>
-                    <p className="text-sm dark:text-white">
-                      {generateRandomString()}
-                    </p>
-                  </a>
-                </div>
-                <div className="col-span-2 hidden md:flex items-center">
-                  <div className="flex items-center">
-                    <p className="text-sm text-black w-[100%] dark:text-white">
-                      {data?.type_dinas}
+                <div className="col-span-4 flex items-center">
+                  <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+                    <p className="text-sm text-black dark:text-white">
+                      {data?.dinas_name}
                     </p>
                   </div>
                 </div>
                 {
-                  Auth?.role === 'super-admin' || Auth?.role === 'super-sub-admin' ? (
-                    <div className="col-span-1 md:col-span-1 flex items-center">
+                  Auth?.role === 'super-admin' ? (
+                    <div className="col-span-2 flex items-center">
                       <div className='flex items-center'>
-                        <div onClick={() => handleRemoveTableu(data?.visual_id)} className='w-[34px] h-[34px] rounded-[6px] mr-2 bg-[red] cursor-pointer hover:brightness-[90%] active:scale-[0.98] p-1 text-white flex items-center justify-center'>
+                        <div onClick={() => handleRemoveTableu(data?.dinas_id)} className='w-[34px] h-[34px] rounded-[6px] mr-2 bg-[red] cursor-pointer hover:brightness-[90%] active:scale-[0.98] p-1 text-white flex items-center justify-center'>
                           <FaTrash />
                         </div>
                         <div onClick={() => {handleGetData(data), setActiveUpdate(true)}} className='w-[34px] h-[34px] bg-yellow-500 rounded-[6px] ml-2 cursor-pointer hover:brightness-[90%] active:scale-[0.98] p-1 text-white flex items-center justify-center'>
@@ -366,4 +274,4 @@ const Diagram: React.FC = () => {
   );
 };
 
-export default Diagram;
+export default Dinas;

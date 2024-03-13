@@ -3,13 +3,15 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface VisualState {
     visual: any,
     user: any,
-    detailUser: any
+    detailUser: any,
+    dinas: any,
 }
 
 const initialState: VisualState = {
     visual: null,
     user: null,
-    detailUser: null
+    detailUser: null,
+    dinas: null,
 }
 
 const informatSlice = createSlice({
@@ -24,6 +26,15 @@ const informatSlice = createSlice({
         },
         clearVisual: (state) => {
             state.visual = null
+        },
+        getDinas: (state, action: PayloadAction<any>) => {
+            state.dinas = {
+                ...state.dinas,
+                ...action.payload
+            }   
+        },
+        clearDinas: (state) => {
+            state.dinas = null
         },
         getUser: (state, action: PayloadAction<any>) => {
             state.user = {
@@ -44,6 +55,6 @@ const informatSlice = createSlice({
     }
 })
 
-export const { getVisual, clearVisual, getUser, getDetailUser, clearUser } = informatSlice.actions;
+export const { getVisual, clearVisual, getDinas, clearDinas, getUser, getDetailUser, clearUser } = informatSlice.actions;
 export default informatSlice.reducer;
 
