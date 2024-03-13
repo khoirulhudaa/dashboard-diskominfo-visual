@@ -110,7 +110,7 @@ const FormGroup: React.FC<any> = ({
         case "signup" :
             return (
                 <form onSubmit={accountFormik.handleSubmit} 
-                className={`w-screen md:w-[60vw] h-screen md:h-[94vh] overflow-y-auto md:rounded-[20px] bg-white p-5 md:p-7 border border-slate-300`}>
+                className={`w-screen md:w-[60vw] h-screen md:h-max overflow-y-auto md:rounded-[20px] bg-white p-5 md:p-7 border border-slate-300`}>
                 {
                     error !== '' ? (
                         <ErrorMessage error={error} />
@@ -119,8 +119,8 @@ const FormGroup: React.FC<any> = ({
                 }
                 <div className='w-full flex h-max'>
                     <div className='w-full p-2 h-full'>
-                        <div className='w-full mb-5 md:flex items-center justify-between'>
-                            <div className='w-full md:w-1/2 md:pr-6'>
+                        <div className='w-full mb-5 items-center justify-between'>
+                            <div className='w-full md:pr-6'>
                                 <InputField 
                                     label='Username'
                                     name='username'
@@ -133,7 +133,7 @@ const FormGroup: React.FC<any> = ({
                                     onTouched={accountFormik.touched.username}
                                 />
                             </div>
-                            <div className='w-full md:mt-0 mt-5 md:w-1/2'>
+                            <div className='w-full mt-5'>
                                 <InputField 
                                     label='Email'
                                     name='email'
@@ -164,7 +164,7 @@ const FormGroup: React.FC<any> = ({
                         </div>
                     </div>
                 </div>
-                <div className='w-max flex items-center'>
+                <div className='w-max flex items-center mb-3'>
                     <button type={`${loading ? 'button' : 'submit'}`} onClick={loading ? () => null : () => {accountFormik.handleSubmit(), setLoading(true)}} className={`w-max hover:brightness-[90%] active:scale-[0.99] duration-100 h-max flex items-center px-5 py-3 rounded-full text-[14px] ${loading ? 'bg-slate-300 text-slate-500' : 'bg-blue-500 text-white'}`}>
                         {
                           loading ? (
